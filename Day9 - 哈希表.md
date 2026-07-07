@@ -1,10 +1,14 @@
 # 哈希表核心原理
 
+### 区别`MAP`和哈希
 
+哈希表和 Map（键值映射）是不是同一个东西？
 
-哈希表和我们常说的 Map（键值映射）是不是同一个东西？不是。
+- 不是
 
-这一点用 Java 来讲解就很清楚，`Map` 是一个 Java 接口，仅仅声明了若干个方法，并没有给出方法的具体实现：
+用JAVA实例
+
+- `Map` 是一个 Java 接口，仅仅声明了若干个方法，并没有给出方法的具体实现：
 
 ```java
 interface Map<K, V> {
@@ -18,24 +22,44 @@ interface Map<K, V> {
 Map 接口本身只定义了键值映射的一系列操作
 
 - HashMap 这种数据结构根据自身特点实现了这些操作。
+
 - 还有其他数据结构也实现了这个接口，比如 `TreeMap`、`LinkedHashMap` 等等。
+
+- ```
+  		Map
+     
+       |
+--------------------
+  |         |        |
+  HashMap TreeMap LinkedHashMap
+  ```
 
 换句话说，你可以说 `HashMap` 的 `get, put, remove` 方法的复杂度都是 O(1) 
 
 - 但不能说 `Map` 接口的复杂度都是 O(1)。
 - 因为如果换成其他的实现类，比如底层用二叉树结构实现的 `TreeMap`，这些方法的复杂度就变成 O(logN)了。
 
-```
+  ```
 不要把哈希和MAP混为一谈, 具体要看这个底层的数据结构是如何实现键值操作的。
 ```
+
+> ==Map 是接口（Interface），HashMap 是实现类（Implementation）。==
 
 
 
 ### 哈希表的基本原理
 
+##### HashMap 的本质是什么? 
+
+> HashMap = 数组 + 哈希函数 + 冲突处理。
+
 哈希表可以理解为一个==加强版的数组==。
 
-数组可以通过索引在 O(1) 的时间复杂度内查找到对应元素，索引是一个非负整数。
+- 底层一定有一个Table数组
+
+  - > table[index]
+
+==数组可以通过索引在 O(1) 的时间复杂度内查找到对应元素，索引是一个非负整数。==
 
 哈希表是类似的，可以通过 `key` 在 O(1) 的时间复杂度内查找到这个 `key` 对应的 `value`。`key` 的类型可以是数字、字符串等多种类型。
 
@@ -77,7 +101,7 @@ class MyHashMap{
 
 
 
-### 关键点
+### HashFunction 关键点
 
 #### `key` 是唯一的，`value` 可以重复
 
@@ -87,9 +111,15 @@ class MyHashMap{
 
 所以哈希表是一样的，`key` 的值不可能出现重复，而 `value` 的值可以随意。
 
+> 相同 key必须得到相同 hash
+>
+> 必须快, 最好O(1), 如果是O(N), 那整个都退化了
+
 
 
 #### 哈希函数
+
+> 必须映射到数组范围
 
 > 哈希函数的作用是把任意长度的输入（key）转化成固定长度的输出（索引）。
 
@@ -164,9 +194,11 @@ int h = key.hashCode();
 
 
 
-#### 哈希冲突
+#### 哈希冲突(hash collision)
 
 上面给出了 `hash` 函数的实现，那么你肯定也会想到，如果两个不同的 `key` 通过哈希函数得到了相同的索引，怎么办呢？这种情况就叫做「哈希冲突」。
+
+> 两个KEY跑到了同一个位置(index)
 
 ```java
 哈希冲突是否可以避免？
@@ -177,6 +209,10 @@ int h = key.hashCode();
 就好比三维物体映射到二维影子一样，这种有损压缩必然会出现信息丢失，有损信息本就无法和原信息一一对应。
 ```
 
+
+
+##### 解决哈希冲突: 拉链法(java HashMap)
+
 出现哈希冲突的情况怎么解决？两种常见的解决方法，一种是**拉链法**，另一种是**线性探查法**（也经常被叫做**开放寻址法**）。
 
 名字听起来高大上，说白了就是纵向延伸和横向延伸两种思路嘛：
@@ -184,6 +220,8 @@ int h = key.hashCode();
 <img src="https://labuladong.online/images/algo/ds-basic/hash-collision.jpeg" alt="img" style="zoom:50%;" />
 
 拉链法相当于是哈希表的底层数组并不直接存储 `value` 类型，而是存储一个链表，当有多个不同的 `key` 映射到了同一个索引上，这些 `key -> value` 对儿就存储在这个链表中，这样就能解决哈希冲突的问题。
+
+- 后来链表太长就变红黑树
 
 而线性探查法的思路是，一个 `key` 发现算出来的 `index` 值已经被别的 `key` 占了，那么它就去 `index + 1` 的位置看看，如果还是被占了，就继续往后找，直到找到一个空的位置为止。
 
@@ -193,7 +231,22 @@ int h = key.hashCode();
 
 
 
-### 扩容和负载因子
+### 扩容和负载因子 (Load Factor)
+
+```markdown
+公式: 
+size
+---------
+table.length
+```
+
+> Java 默认到达0.75后会扩容
+
+==扩容以后遍历顺序变了==
+
+- 因为新的 table 更大
+- 位置改变
+- 所以遍历顺序改变。不能依赖 HashMap 顺序
 
 相信大家都听说过「负载因子」这个专业术语，现在你明白了哈希冲突的问题，就能理解负载因子的意义了。
 
@@ -289,6 +342,8 @@ for (int i = 0; i < table.length; i++) {
 
 ### Key必须是不可变的
 
+> Key 必须 immutable（不可变）。
+
 **只有那些不可变类型，才能作为哈希表的 `key`，这一点很重要**。
 
 所谓不可变类型，就是说这个对象一旦创建，它的值就不能再改变了。比如 Java 中的 `String, Integer` 等类型，一旦创建了这些对象，你就只能读取它的值，而不能再修改它的值了。
@@ -329,3 +384,202 @@ public int hashCode() {
 > 所以正确的做法是，使用不可变类型作为哈希表的 `key`，比方说用 `String` 类型作为 `key`。因为 Java 中的 `String` 对象一旦创建出来，它的值就不允许被改变，你就不会遇到上面的问题。
 >
 > `String` 类型的 `hashCode` 方法也需要遍历所有字符，但是由于它的不可变性，这个值只要算出来一次，就可以缓存下来，不用每次都重新计算，所以 [平均时间复杂度](https://labuladong.online/zh/algo/essential-technique/complexity-analysis/) 依然是 O(1)*O*(1)。
+
+
+
+
+
+# 源码
+
+#### Java 8 的 HashMap 为什么要把链表转换成红黑树？
+
+如果一直是链表, 性能越来越差, 复杂度是o(n)
+
+因为哈希冲突严重时，一个桶里的链表会变长，查找会从平均 O(1) 退化成 O(n)。Java 8 引入红黑树，把这个桶内查找从 O(n) 优化到 O(log n)。
+
+
+
+什么时候会把链表变成红黑树？
+
+- 条件一：链表长度达到 8
+- HashMap 的数组容量至少为 64 (table.length >= 64)
+
+但是一般还是要先扩容
+
+> 如果数组还很小，与其把链表变成复杂的红黑树，不如先扩容，让元素重新分布。
+>
+> 当数组容量小于 64 时，扩容带来的收益，通常比树化更高。
+
+
+
+#### 为什么 HashMap 的容量（capacity）通常都是 **2 的幂**？
+
+如果 table.length = 16
+
+为什么源码不用：
+
+```
+hash % 16
+```
+
+而是：
+
+```
+hash & (16 - 1)
+```
+
+只有 table.length 是 2 的幂时，`hash & (n-1)` 才等价于 `hash % n`。
+
+HashMap 的容量设计成 2 的幂，主要有两个原因。第一，可以使用位运算 `hash & (n - 1)` 代替取模 `%` 运算，提高计算数组下标的效率。第二，当容量是 2 的幂时，`n - 1` 的二进制低位全为 1，能够充分利用 hash 值的低位信息，使元素分布更均匀，减少哈希冲突。
+
+为什么位运算更快？
+
+因为：
+
+- `%` 本质是除法运算，CPU 执行成本较高。
+- `&` 是位运算，只需要对二进制位逐位计算，速度更快。
+
+它为什么还能得到一样的结果？
+
+
+
+#### HashMap 为什么默认负载因子是 **0.75**？
+
+> > **负载因子 = size / table.length**
+
+一个平衡点, 空间利用率和查询效率
+
+- empirical value (经验值)
+- **不一定是达到负载因子就扩容，而是在插入新元素时，如果插入后会超过阈值（threshold），才会触发扩容。**
+
+
+
+#### HashMap 扩容(resize) 的时候发生了什么？
+
+- 扩大数组
+  - 当size > threshold时候
+
+创建一个新的更大的数组, 搬运所有元素
+
+HashMap 扩容时，会先创建一个容量翻倍的新数组，然后遍历旧数组中的所有节点。由于数组容量发生变化，每个元素的索引可能改变，因此需要重新放到新数组中。Java 8 利用了容量始终翻倍这一特点，不需要重新计算 hash 值，而是根据新增的那一位判断元素是留在原位置，还是移动到原位置加旧容量的位置，因此扩容效率比 Java 7 更高。
+
+
+
+为什么扩容一定是 ×2？
+
+才可以利用：
+
+```
+index
+
+↓
+
+index+oldCap
+
+如果一个元素原来在 index = 5，它扩容以后最多也就两种可能：capacity是16 
+
+还在 5
+或者去新增的区域：5 + 16 = 21
+```
+
+
+
+> HashMap 中 key 是唯一的。如果调用 put() 时 key 已存在，不会新增节点，而是找到对应节点并更新它的 value，因此 size 不会增加，只会覆盖旧值。HashMap 判断 key 是否相同，会先比较 hashCode，再比较 equals。
+
+
+
+#### 为什么扩容以后：key的位置可能改变？
+
+
+
+#### HashMap 为什么不是线程安全的？
+
+HashMap 完全没有：synchornised 也没有 lock 所以任何线程都可以put remove, resize 
+
+如果需要线程安全
+
+- Hash Table
+- 更推荐 ConcurrentHashMap 
+
+原因是：
+
+- `Hashtable`：整个 HashMap 加一把大锁（粗粒度锁），性能较差。
+- `ConcurrentHashMap`：使用更细粒度的同步策略（Java 8 中主要是桶级别同步 + CAS），允许更多线程并发访问，性能更好
+
+#### HashMap 和 ConcurrentHashMap 最大区别是什么？
+
+在 JAVA7 中。ConcurrentHashMap 是有segment lock (锁分段)
+
+在JAVA 8 中, 改成了Node[]
+
+- 锁的是桶（bucket）
+
+JAVA 8 
+
+- CAS (compare and swap) - 比较并交换）
+
+
+
+#### HashSet VS HashMap 
+
+The primary difference is that **`HashMap` stores data as key-value pairs**, while **`HashSet` stores only unique individual elements**. In fact, `HashSet` is implemented internally using a `HashMap` where the set elements act as keys and a dummy object serves as the value. [[1](https://www.geeksforgeeks.org/java/difference-between-hashmap-and-hashset/), [2](https://stackoverflow.com/questions/2773824/difference-between-hashset-and-hashmap)]
+
+- **`HashMap` 存储的是“键值对”（Key-Value Pairs）**，而 **`HashSet` 只存储“唯一的单个元素”**
+
+核心区别对比
+
+| 特性            | HashMap                                  | HashSet                                        |
+| --------------- | ---------------------------------------- | ---------------------------------------------- |
+| **实现接口**    | 实现了 `Map` 接口。                      | 实现了 `Set` 接口。                            |
+| **存储结构**    | 存储键值对（例如：用户ID → 用户信息）。  | 存储独立的单个元素（例如：唯一的手机号列表）。 |
+| **重复性**      | 键（Key）不能重复，值（Value）可以重复。 | 所有元素都绝对不能重复。                       |
+| **添加方法**    | 使用 `put(key, value)` 方法。            | 使用 `add(element)` 方法。                     |
+| **空值 (Null)** | 允许一个 `null` 键和多个 `null` 值。     | 只允许存储一个 `null` 元素。                   |
+| **内部运作**    | 独立计算哈希值并存储。                   | 内部包裹了一个 `HashMap` 来存储数据。          |
+
+- 如果你需要**建立映射关系**（比如通过“商品ID”快速查找“商品价格”），请使用 **`HashMap`**。
+
+- 如果你只需要**去重**或者**判断某个东西是否存在**（比如统计网站的独立访客 IP、过滤重复的单词），请使用 **`HashSet`**。
+
+
+
+# 力扣
+
+什么时候用HashMap? 
+
+- 查找
+  -  Two Sum（两数之和）
+- 统计次数
+  - Valid Anagram（有效字母异位词）
+  - Top K Frequent Elements - 统计每个数字出现的次数
+- 去重
+  -  Contains Duplicate ( HashSet 就是MAP,  只关心有没有)
+- 前缀和 + HashMap
+  - Subarray Sum Equals K	
+    - 用哈希保存前缀和 --> 出现次数
+- 连续排列
+  - Longest Consecutive Sequence - HashSet
+- 设计题
+  - LRU cache 
+    - haspmap + 双向链表
+- RandomizedSet 
+  - HashMap + arraylist 
+- 字符串窗口
+  - Longest Substring Without Repeating Characters
+  - HashMap：
+    - 保存字符 ---> 最后出现的位置, 滑动窗口
+
+
+
+# 我建议的学习顺序（按照面试频率）
+
+| 顺序  | 题目                                              | 难度  | 面试频率 |
+| ----- | ------------------------------------------------- | ----- | -------- |
+| ⭐⭐⭐⭐⭐ | 1. Two Sum                                        | ⭐     | 必考     |
+| ⭐⭐⭐⭐⭐ | 242. Valid Anagram                                | ⭐     | 必考     |
+| ⭐⭐⭐⭐⭐ | 49. Group Anagrams                                | ⭐⭐    | 必考     |
+| ⭐⭐⭐⭐⭐ | 128. Longest Consecutive Sequence                 | ⭐⭐⭐   | 必考     |
+| ⭐⭐⭐⭐  | 560. Subarray Sum Equals K                        | ⭐⭐⭐⭐  | 高频     |
+| ⭐⭐⭐⭐⭐ | 146. LRU Cache                                    | ⭐⭐⭐⭐⭐ | 神题     |
+| ⭐⭐⭐⭐  | 380. Insert Delete GetRandom O(1)                 | ⭐⭐⭐⭐  | 高频     |
+| ⭐⭐⭐⭐  | 3. Longest Substring Without Repeating Characters | ⭐⭐⭐   | 必考     |
