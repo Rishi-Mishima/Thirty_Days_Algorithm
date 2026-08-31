@@ -164,3 +164,92 @@ for (int i = 0; i < t.length(); i++) {
 
 - 随着 `right` 指针右移，新字符进入窗口，`window` 中对应字符的计数加 1。
 - 随着 `left` 指针右移，旧字符离开窗口，`window` 中对应字符的计数减 1。
+
+
+
+>  为什么要这么设计？
+
+在后续的滑动过程中，我们需要快速判断：**“当前窗口里的字符，是否已经覆盖了 `t` 中的所有字符？”**
+
+通过对比 `window` 和 `need` 就可以实现：
+
+- 对于 `t` 中的某个字符 `c`，如果 `window.get(c) >= need.get(c)`，说明窗口里这个字符的数量够了。
+- 文章中使用了一个变量 `valid` 来记录有多少种字符已经满足了数量要求。当 `valid == need.size()` 时，就说明窗口已经合法了（包含了 `t` 的所有字符）。
+
+**现在开始套模板，只需要思考以下几个问题**：
+
+1、什么时候应该移动 `right` 扩大窗口？窗口加入字符时，应该更新哪些数据？
+
+2、什么时候窗口应该暂停扩大，开始移动 `left` 缩小窗口？从窗口移出字符时，应该更新哪些数据？
+
+3、我们要的结果应该在扩大窗口时还是缩小窗口时进行更新？
+
+如果一个字符进入窗口，应该增加 `window` 计数器；如果一个字符将移出窗口的时候，应该减少 `window` 计数器；当 `valid` 满足 `need` 时应该收缩窗口；应该在收缩窗口的时候更新最终结果。
+
+
+
+### 完整代码
+
+```java
+class Solution {
+    public String minWindow(String s, String t) {
+        Map<Character, Integer> need = new HashMap<>();
+        Map<Character, Integer> window = new HashMap<>();
+        for (char c : t.toCharArray()) {
+            need.put(c, need.getOrDefault(c, 0) + 1);
+        }
+
+        int left = 0, right = 0;
+        int valid = 0;
+        // 记录最小覆盖子串的起始索引及长度
+        int start = 0, len = Integer.MAX_VALUE;
+        while (right < s.length()) {
+            // c 是将移入窗口的字符
+            char c = s.charAt(right);
+            // 扩大窗口
+            right++;
+            // 进行窗口内数据的一系列更新
+            if (need.containsKey(c)) {
+                window.put(c, window.getOrDefault(c, 0) + 1);
+                if (window.get(c).equals(need.get(c)))
+                    valid++;
+            }
+
+            // 判断左侧窗口是否要收缩
+            while (valid == need.size()) {
+                // 在这里更新最小覆盖子串
+                if (right - left < len) {
+                    start = left;
+                    len = right - left;
+                }
+                // d 是将移出窗口的字符
+                char d = s.charAt(left);
+                // 缩小窗口
+                left++;
+                // 进行窗口内数据的一系列更新
+                if (need.containsKey(d)) {
+                    if (window.get(d).equals(need.get(d)))
+                        valid--;
+                    window.put(d, window.get(d) - 1);
+                }                    
+            }
+        }
+        // 返回最小覆盖子串
+        return len == Integer.MAX_VALUE ? "" : s.substring(start, start + len);
+    }
+}
+```
+
+
+
+> 使用 Java 的读者请注意
+>
+> 对 Java 包装类进行比较时要尤为小心，`Integer`，`String` 等类型应该用 `equals` 方法判定相等，而不能直接用等号 `==`，否则会出错。所以在缩小窗口更新数据的时候，不能直接写为 `window.get(d) == need.get(d)`，而要用 `window.get(d).equals(need.get(d))`，之后的题目代码同理。
+
+上面的代码中，当我们发现某个字符在 `window` 的数量满足了 `need` 的需要，就要更新 `valid`，表示有一个字符已经满足要求。而且，你能发现，两次对窗口内数据的更新操作是完全对称的。
+
+当 `valid == need.size()` 时，说明 `T` 中所有字符已经被覆盖，已经得到一个可行的覆盖子串，现在应该开始收缩窗口了，以便得到「最小覆盖子串」。
+
+移动 `left` 收缩窗口时，窗口内的字符都是可行解，所以应该在收缩窗口的阶段进行最小覆盖子串的更新，以便从可行解中找到长度最短的最终结果。
+
+至此，应该可以完全理解这套框架了，滑动窗口算法又不难，就是细节问题让人烦得很。**以后遇到滑动窗口算法，你就按照这框架写代码，保准没有 bug，还省事儿**
