@@ -17,6 +17,30 @@ docs/
 └── 07-algorithm-patterns/              # 动态规划、分治、贪心、数学
 ```
 
+## Mermaid 架构图
+
+```mermaid
+flowchart TD
+    A["30 Days Algorithm Notes"] --> B["README.md<br/>学习入口与导航"]
+    A --> C["docs/<br/>算法笔记目录"]
+
+    C --> D["01-foundations<br/>框架思维与基础概念"]
+    C --> E["02-arrays-and-linked-lists<br/>数组 / 链表 / 矩阵"]
+    C --> F["03-linear-structures-and-hashing<br/>栈 / 队列 / 哈希 / LRU"]
+    C --> G["04-search-and-techniques<br/>滑动窗口 / 二分 / 随机算法"]
+    C --> H["05-trees-and-heaps<br/>树 / 二叉树 / BST / 堆"]
+    C --> I["06-backtracking-and-graphs<br/>回溯 / DFS / BFS / 图 / 最短路径"]
+    C --> J["07-algorithm-patterns<br/>动态规划 / 分治 / 贪心 / 数学"]
+
+    D --> D1["Day01"]
+    E --> E1["Day02 - Day07<br/>Day15"]
+    F --> F1["Day08 - Day10"]
+    G --> G1["Day11 - Day13"]
+    H --> H1["Day16 - Day21"]
+    I --> I1["Day22 - Day23<br/>Day27 - Day29"]
+    J --> J1["Day24 - Day26<br/>Day30"]
+```
+
 ## 学习路线
 
 ### 01. Foundations
