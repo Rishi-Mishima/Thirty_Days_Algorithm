@@ -41,58 +41,70 @@ flowchart TD
     J --> J1["Day24 - Day26<br/>Day30"]
 ```
 
+
+
+## 针对面试
+
+此计划还包括力扣HOT100的题库
+
+🔗 [力扣链接](https://leetcode.cn/studyplan/top-100-liked/)
+
+[二叉树](力扣HOT100/二叉树)
+
+
+
 ## 学习路线
 
 ### 01. Foundations
 
-- [Day01 - 数据结构与算法](docs/01-foundations/Day01-数据结构与算法.md)
+- [Day01 - 数据结构与算法](30天路线规划/01-foundations/Day01-数据结构与算法.md)
 
 ### 02. Arrays And Linked Lists
 
-- [Day02 - 数组与链表基础](docs/02-arrays-and-linked-lists/Day02-数组与链表基础.md)
-- [Day03 - 链表双指针](docs/02-arrays-and-linked-lists/Day03-链表双指针.md)
-- [Day04 - 前缀和数组](docs/02-arrays-and-linked-lists/Day04-前缀和数组.md)
+- [Day02 - 数组与链表基础](30天路线规划/02-arrays-and-linked-lists/Day02-数组与链表基础.md)
+- [Day03 - 链表双指针](30天路线规划/02-arrays-and-linked-lists/Day03-链表双指针.md)
+- [Day04 - 前缀和数组](30天路线规划/02-arrays-and-linked-lists/Day04-前缀和数组.md)
 - Day05 - 待补一个可爱的小坑位
-- [Day06 - 二维数组](docs/02-arrays-and-linked-lists/Day06-二维数组.md)
-- [Day07 - 环形数组](docs/02-arrays-and-linked-lists/Day07-环形数组.md)
-- [Day15 - 反转单链表](docs/02-arrays-and-linked-lists/Day15-反转单链表.md)
+- [Day06 - 二维数组](30天路线规划/02-arrays-and-linked-lists/Day06-二维数组.md)
+- [Day07 - 环形数组](30天路线规划/02-arrays-and-linked-lists/Day07-环形数组.md)
+- [Day15 - 反转单链表](30天路线规划/02-arrays-and-linked-lists/Day15-反转单链表.md)
 
 ### 03. Linear Structures And Hashing
 
-- [Day08 - 队列与栈](docs/03-linear-structures-and-hashing/Day08-队列与栈.md)
-- [Day09 - 哈希表](docs/03-linear-structures-and-hashing/Day09-哈希表.md)
-- [Day10 - 手写 LRU](docs/03-linear-structures-and-hashing/Day10-手写LRU.md)
+- [Day08 - 队列与栈](30天路线规划/03-linear-structures-and-hashing/Day08-队列与栈.md)
+- [Day09 - 哈希表](30天路线规划/03-linear-structures-and-hashing/Day09-哈希表.md)
+- [Day10 - 手写 LRU](30天路线规划/03-linear-structures-and-hashing/Day10-手写LRU.md)
 
 ### 04. Search And Techniques
 
-- [Day11 - 滑动窗口](docs/04-search-and-techniques/Day11-滑动窗口.md)
-- [Day12 - 二分查找](docs/04-search-and-techniques/Day12-二分查找.md)
-- [Day13 - 游戏中的随机算法](docs/04-search-and-techniques/Day13-游戏中的随机算法.md)
+- [Day11 - 滑动窗口](30天路线规划/04-search-and-techniques/Day11-滑动窗口.md)
+- [Day12 - 二分查找](30天路线规划/04-search-and-techniques/Day12-二分查找.md)
+- [Day13 - 游戏中的随机算法](30天路线规划/04-search-and-techniques/Day13-游戏中的随机算法.md)
 - Day14 - 待补一个小小中转站
 
 ### 05. Trees And Heaps
 
-- [Day16 - 二叉树遍历](docs/05-trees-and-heaps/Day16-二叉树遍历.md)
-- [Day17 - 二叉树递归遍历](docs/05-trees-and-heaps/Day17-二叉树递归遍历.md)
-- [Day18 - 二叉树层序遍历](docs/05-trees-and-heaps/Day18-二叉树层序遍历.md)
-- [Day19 - 二叉搜索树](docs/05-trees-and-heaps/Day19-二叉搜索树.md)
-- [Day20 - 二叉堆](docs/05-trees-and-heaps/Day20-二叉堆.md)
-- [Day21 - 树](docs/05-trees-and-heaps/Day21-树.md)
+- [Day16 - 二叉树遍历](30天路线规划/05-trees-and-heaps/Day16-二叉树遍历.md)
+- [Day17 - 二叉树递归遍历](30天路线规划/05-trees-and-heaps/Day17-二叉树递归遍历.md)
+- [Day18 - 二叉树层序遍历](30天路线规划/05-trees-and-heaps/Day18-二叉树层序遍历.md)
+- [Day19 - 二叉搜索树](30天路线规划/05-trees-and-heaps/Day19-二叉搜索树.md)
+- [Day20 - 二叉堆](30天路线规划/05-trees-and-heaps/Day20-二叉堆.md)
+- [Day21 - 树](30天路线规划/05-trees-and-heaps/Day21-树.md)
 
 ### 06. Backtracking And Graphs
 
-- [Day22 - 回溯](docs/06-backtracking-and-graphs/Day22-回溯.md)
-- [Day23 - DFS 深度优先](docs/06-backtracking-and-graphs/Day23-DFS深度优先.md)
-- [Day27 - BFS](docs/06-backtracking-and-graphs/Day27-BFS.md)
-- [Day28 - 图](docs/06-backtracking-and-graphs/Day28-图.md)
-- [Day29 - 最短路径](docs/06-backtracking-and-graphs/Day29-最短路径.md)
+- [Day22 - 回溯](30天路线规划/06-backtracking-and-graphs/Day22-回溯.md)
+- [Day23 - DFS 深度优先](30天路线规划/06-backtracking-and-graphs/Day23-DFS深度优先.md)
+- [Day27 - BFS](30天路线规划/06-backtracking-and-graphs/Day27-BFS.md)
+- [Day28 - 图](30天路线规划/06-backtracking-and-graphs/Day28-图.md)
+- [Day29 - 最短路径](30天路线规划/06-backtracking-and-graphs/Day29-最短路径.md)
 
 ### 07. Algorithm Patterns
 
-- [Day24 - 动态规划](docs/07-algorithm-patterns/Day24-动态规划.md)
-- [Day25 - 分治](docs/07-algorithm-patterns/Day25-分治.md)
-- [Day26 - 贪心](docs/07-algorithm-patterns/Day26-贪心.md)
-- [Day30 - 数学算法](docs/07-algorithm-patterns/Day30-数学算法.md)
+- [Day24 - 动态规划](30天路线规划/07-algorithm-patterns/Day24-动态规划.md)
+- [Day25 - 分治](30天路线规划/07-algorithm-patterns/Day25-分治.md)
+- [Day26 - 贪心](30天路线规划/07-algorithm-patterns/Day26-贪心.md)
+- [Day30 - 数学算法](30天路线规划/07-algorithm-patterns/Day30-数学算法.md)
 
 ## 使用方式
 
@@ -103,5 +115,3 @@ flowchart TD
 1. 先看算法思想和模板。
 2. 再手写一遍核心代码。
 3. 最后挑 1 到 3 道同类题巩固一下。
-
-
