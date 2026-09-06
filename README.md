@@ -49,7 +49,9 @@ flowchart TD
 
 🔗 [力扣链接](https://leetcode.cn/studyplan/top-100-liked/)
 
-[二叉树](力扣HOT100/二叉树)
+[二叉树](力扣HOT100/二叉树/二叉树.md)
+
+
 
 
 
