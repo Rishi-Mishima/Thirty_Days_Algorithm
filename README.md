@@ -43,13 +43,17 @@ flowchart TD
 
 
 
-## 针对面试
+## 🔥 针对面试
 
 此计划还包括力扣HOT100的题库
 
-🔗 [力扣链接](https://leetcode.cn/studyplan/top-100-liked/)
+> 想要速成的朋友们抓紧了🚨
 
-[二叉树](力扣HOT100/二叉树/二叉树.md)
+🔗 [力扣链接官方题库链接](https://leetcode.cn/studyplan/top-100-liked/)
+
+- [二叉树](力扣HOT100/二叉树/二叉树.md)
+
+- [二分查找](力扣HOT100/二分查找/二分查找.md)
 
 
 
