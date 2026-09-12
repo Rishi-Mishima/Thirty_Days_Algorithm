@@ -47,15 +47,17 @@ flowchart TD
 
 此计划还包括力扣HOT100的题库
 
+This plan also includes **LC Hot 100** suitable for quick warmups and interview preparation 
+
 > 想要速成的朋友们抓紧了🚨
 
-🔗 [力扣链接官方题库链接](https://leetcode.cn/studyplan/top-100-liked/)
+🔗 [力扣链接官方题库链接](https://leetcode.cn/studyplan/top-100-liked/) - LC official links 
 
-- [二叉树](力扣HOT100/二叉树/二叉树.md)
+- [二叉树(Binary Tree)](力扣HOT100/二叉树/二叉树.md)
 
-- [二分查找](力扣HOT100/二分查找/二分查找.md)
+- [二分查找(Binary Search)](力扣HOT100/二分查找/二分查找.md)
 
-- [哈希](力扣HOT100/哈希/哈希.md)
+- [哈希(Hash)](力扣HOT100/哈希/哈希.md)
 
 
 
