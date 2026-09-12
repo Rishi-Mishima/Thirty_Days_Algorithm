@@ -87,15 +87,16 @@ Map 接口本身只定义了键值映射的一系列操作
 
 - 还有其他数据结构也实现了这个接口，比如 `TreeMap`、`LinkedHashMap` 等等。
 
-  ```
 
 换句话说，你可以说 `HashMap` 的 `get, put, remove` 方法的复杂度都是 O(1) 
 
 - 但不能说 `Map` 接口的复杂度都是 O(1)。
 - 因为如果换成其他的实现类，比如底层用二叉树结构实现的 `TreeMap`，这些方法的复杂度就变成 O(logN)了。
 
-  ```
 不要把哈希和MAP混为一谈, 具体要看这个底层的数据结构是如何实现键值操作的。
+
+
+
 ```
 
 > ==Map 是接口（Interface），HashMap 是实现类（Implementation）。==
