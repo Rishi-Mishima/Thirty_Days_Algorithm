@@ -1,3 +1,65 @@
+# 哈希表源码实现
+
+### python
+
+```python 
+# 初始化哈希表
+hmap: dict = {}
+
+# 添加
+hmap[12836] = "小哈"
+hmap[15937] = "小啰"
+
+# 查询操作
+# 向哈希表中输入键 key ，得到值 value
+name : str = hmap[15937]
+
+# 删除操作
+# 在哈希表中删除键值对 (key, value)
+hmap.pop(10583)
+```
+
+
+
+### java
+
+```java
+Map<Integer, String> map = new HashMap<>();
+
+/* 添加操作 */
+// 在哈希表中添加键值对 (key, value)
+map.put(12836, "小哈");
+
+/* 查询操作 */
+// 向哈希表中输入键 key ，得到值 value
+String name = map.get(15937);
+
+/* 删除操作 */
+// 在哈希表中删除键值对 (key, value)
+map.remove(10583);
+```
+
+
+
+### 遍历
+
+```python 
+# 遍历哈希表
+# 遍历键值对 key->value
+for key, value in hmap.items():
+    print(key, "->", value)
+# 单独遍历键 key
+for key in hmap.keys():
+    print(key)
+# 单独遍历值 value
+for value in hmap.values():
+    print(value)
+```
+
+
+
+
+
 # 哈希表核心原理
 
 ### 区别`MAP`和哈希
@@ -25,13 +87,6 @@ Map 接口本身只定义了键值映射的一系列操作
 
 - 还有其他数据结构也实现了这个接口，比如 `TreeMap`、`LinkedHashMap` 等等。
 
-- ```
-  		Map
-     
-       |
---------------------
-  |         |        |
-  HashMap TreeMap LinkedHashMap
   ```
 
 换句话说，你可以说 `HashMap` 的 `get, put, remove` 方法的复杂度都是 O(1) 
@@ -211,7 +266,7 @@ int h = key.hashCode();
 
 
 
-##### 解决哈希冲突: 拉链法(java HashMap)
+##### 解决哈希冲突: 拉链法(seperate chaining)
 
 出现哈希冲突的情况怎么解决？两种常见的解决方法，一种是**拉链法**，另一种是**线性探查法**（也经常被叫做**开放寻址法**）。
 
@@ -412,6 +467,14 @@ public int hashCode() {
 
 
 
+##### 红黑树
+
+https://oi-wiki.org/ds/rbtree/
+
+
+
+
+
 #### 为什么 HashMap 的容量（capacity）通常都是 **2 的幂**？
 
 如果 table.length = 16
@@ -505,6 +568,8 @@ HashMap 完全没有：synchornised 也没有 lock 所以任何线程都可以pu
 
 - `Hashtable`：整个 HashMap 加一把大锁（粗粒度锁），性能较差。
 - `ConcurrentHashMap`：使用更细粒度的同步策略（Java 8 中主要是桶级别同步 + CAS），允许更多线程并发访问，性能更好
+
+
 
 #### HashMap 和 ConcurrentHashMap 最大区别是什么？
 
