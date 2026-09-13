@@ -59,6 +59,8 @@ This plan also includes **LC Hot 100** suitable for quick warmups and interview 
 
 - [哈希(Hash)](力扣HOT100/哈希/哈希.md)
 
+- [子串(Substring)](力扣HOT100/子串/子串.md)
+
 
 
 
